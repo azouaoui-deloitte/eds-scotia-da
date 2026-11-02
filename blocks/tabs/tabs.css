@@ -23,16 +23,17 @@
   border: 0;
   border-bottom: 3px solid transparent;
   padding: 20px 4px;
-  font-family: var(--body-font-family);
+  font-family: var(--bold-font-family);
   font-size: 15px;
   font-weight: 700;
+  letter-spacing: -0.2px;
   color: var(--heading-color);
   cursor: pointer;
   white-space: nowrap;
 }
 
 .tabs .tabs-tab[aria-selected='true'] {
-  color: var(--scotia-red);
+  color: var(--heading-color);
   border-bottom-color: var(--scotia-red);
 }
 
@@ -48,13 +49,16 @@
   font-family: var(--heading-font-family);
   font-size: 36px;
   font-weight: 400;
+  line-height: 1.1;
+  color: #333;
   margin: 8px 0 4px;
 }
 
 .tabs .tabs-panel > p {
-  color: #555;
+  color: #333;
   margin: 0 0 28px;
-  font-size: 16px;
+  font-size: 17.6px;
+  line-height: 1.02;
 }
 
 .tabs .tabs-panel .cards {

@@ -51,7 +51,10 @@ footer .footer-card p {
 }
 
 footer .footer-card-link {
-  color: var(--link-color);
+  color: var(--text-color);
+  font-family: var(--bold-font-family);
+  font-size: 16px;
+  font-weight: 700;
   text-decoration: underline;
   margin-top: 4px;
 }
@@ -94,7 +97,7 @@ footer .footer-legal ul {
 footer .footer-legal a,
 footer .footer-legal button {
   color: var(--text-color);
-  font-size: 13px;
+  font-size: 15px;
   background: none;
   border: 0;
   padding: 0;

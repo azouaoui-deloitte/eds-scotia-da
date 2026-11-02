@@ -161,6 +161,7 @@ header .nav-signin .button {
   color: #fff;
   border-radius: 5px;
   padding: 12px 28px;
+  font-family: var(--bold-font-family);
   font-size: 16px;
   display: inline-flex;
   gap: 8px;

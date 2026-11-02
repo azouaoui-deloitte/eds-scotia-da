@@ -48,13 +48,17 @@ export default function decorate(block) {
     // the leading paragraph that holds the brand logo image -> logo row
     const logo = [...contentCell.querySelectorAll('p')].find((p) => p.querySelector('img, picture'));
     if (logo) logo.classList.add('hero-logo');
-    // style button groups
-    contentCell.querySelectorAll('p.button-wrapper a').forEach((a, i) => {
-      a.classList.add('button');
-      a.classList.add(i === 0 ? 'primary' : 'secondary');
+    // the DA pipeline strips the authored button-wrapper class, so detect standalone links
+    // (a <p> whose only content is a single <a>) and promote them to buttons.
+    const btnWrappers = [...contentCell.querySelectorAll('p')].filter((p) => {
+      const a = p.querySelector('a');
+      return a && p.children.length === 1 && p.textContent.trim() === a.textContent.trim();
     });
-    // group label + button pairs into a CTA row
-    const btnWrappers = [...contentCell.querySelectorAll('p.button-wrapper')];
+    btnWrappers.forEach((p, i) => {
+      p.classList.add('button-wrapper');
+      const a = p.querySelector('a');
+      a.classList.add('button', i === 0 ? 'primary' : 'secondary');
+    });
     if (btnWrappers.length) {
       const ctaRow = document.createElement('div');
       ctaRow.className = 'hero-cta-row';

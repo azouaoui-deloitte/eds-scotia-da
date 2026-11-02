@@ -97,13 +97,14 @@
 }
 
 .cards.interest .card-tile-title {
-  font-family: var(--heading-font-family);
-  font-size: 22px;
-  line-height: 1.2;
+  font-family: var(--bold-font-family);
+  font-size: 24px;
+  line-height: 1.125;
 }
 
 .cards.interest .card-tile-cta {
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 1.5;
   text-decoration: underline;
 }
 
@@ -174,24 +175,27 @@
 
 .cards.marketing .card-mkt-body h3,
 .cards.marketing .card-mkt-body h4 {
-  font-family: var(--body-font-family);
+  font-family: var(--bold-font-family);
   font-size: 18px;
   font-weight: 700;
+  line-height: 1.5;
   color: var(--heading-color);
   margin: 0;
 }
 
 .cards.marketing .card-mkt-body p {
-  font-size: 14px;
-  color: #555;
+  font-size: 16px;
+  color: var(--text-color);
   margin: 0;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 .cards.marketing .card-mkt-link {
   margin-top: auto;
   color: var(--link-color);
-  font-size: 15px;
+  font-family: var(--bold-font-family);
+  font-size: 16px;
+  line-height: 1.5;
   text-decoration: none;
   display: inline-flex;
   align-items: center;

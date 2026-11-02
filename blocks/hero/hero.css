@@ -31,7 +31,8 @@
   font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-xxl);
   line-height: 1.1;
-  color: var(--heading-color);
+  letter-spacing: -1px;
+  color: #333;
   margin: 0 0 16px;
   max-width: 520px;
 }
