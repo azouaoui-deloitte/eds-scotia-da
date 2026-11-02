@@ -179,7 +179,8 @@ function decorateMenu(menuSection) {
   menuSection.replaceChildren(ul);
   const categories = [];
   [...ul.children].forEach((li, i) => {
-    const link = li.querySelector(':scope > a');
+    // the DA pipeline wraps a category link in a <p> when the <li> also holds a sublist
+    const link = li.querySelector(':scope > a') || li.querySelector(':scope > p > a');
     const sections = li.querySelector(':scope > ul');
     if (!link || !sections) return;
     const id = `nav-dd-${i + 1}`;
