@@ -179,10 +179,16 @@ function decorateMenu(menuSection) {
   menuSection.replaceChildren(ul);
   const categories = [];
   [...ul.children].forEach((li, i) => {
-    // the DA pipeline wraps a category link in a <p> when the <li> also holds a sublist
+    // the DA pipeline wraps a category link in a <p> when the <li> also holds a sublist;
+    // unwrap it so the link is a direct child of the <li> (as prod/xwalk renders it)
     const link = li.querySelector(':scope > a') || li.querySelector(':scope > p > a');
     const sections = li.querySelector(':scope > ul');
     if (!link || !sections) return;
+    const linkP = link.parentElement;
+    if (linkP.tagName === 'P' && linkP.parentElement === li) {
+      li.insertBefore(link, linkP);
+      linkP.remove();
+    }
     const id = `nav-dd-${i + 1}`;
     const dropdown = el('div', { class: 'nav-dropdown', id });
     sections.classList.add('nav-dd-sections');
