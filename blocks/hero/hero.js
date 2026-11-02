@@ -1,19 +1,53 @@
+/**
+ * Hero: art-directed background per viewport.
+ * The image cell authors three crops in order: desktop, tablet, mobile.
+ * We collapse them into a single <picture> with art-directed <source> breakpoints.
+ */
+function buildArtDirectedPicture(imgs) {
+  const base = (img) => img.getAttribute('src').split('?')[0];
+  const alt = imgs[0].getAttribute('alt') || '';
+  const desktop = imgs[0];
+  const tablet = imgs[1] || imgs[0];
+  const mobile = imgs[2] || tablet;
+  const pic = document.createElement('picture');
+  const s1 = document.createElement('source');
+  s1.media = '(min-width: 1200px)';
+  s1.type = 'image/webp';
+  s1.srcset = `${base(desktop)}?width=2400&format=webply&optimize=medium`;
+  const s2 = document.createElement('source');
+  s2.media = '(min-width: 600px)';
+  s2.type = 'image/webp';
+  s2.srcset = `${base(tablet)}?width=1600&format=webply&optimize=medium`;
+  const img = document.createElement('img');
+  img.loading = 'eager';
+  img.alt = alt;
+  img.src = `${base(mobile)}?width=800&format=webply&optimize=medium`;
+  pic.append(s1, s2, img);
+  return pic;
+}
+
 export default function decorate(block) {
   const row = block.querySelector(':scope > div');
   if (!row) return;
   const cells = [...row.children];
-  // identify image cell (the one whose only meaningful content is a picture/img)
+  // identify image cell (the one whose only meaningful content is picture/img)
   let imageCell = cells.find((c) => c.querySelector('picture, img') && c.textContent.trim() === '');
   let contentCell = cells.find((c) => c !== imageCell);
   if (!imageCell && cells.length === 2) {
     [contentCell, imageCell] = cells;
   }
-  if (imageCell) imageCell.classList.add('hero-media');
+  if (imageCell) {
+    imageCell.classList.add('hero-media');
+    const imgs = [...imageCell.querySelectorAll('img')];
+    if (imgs.length >= 2) {
+      imageCell.replaceChildren(buildArtDirectedPicture(imgs));
+    }
+  }
   if (contentCell) {
     contentCell.classList.add('hero-content');
-    // group the small circle icons (leading images before the H1) into a row
-    const icons = [...contentCell.querySelectorAll('p')].find((p) => p.querySelectorAll('img, picture').length >= 2);
-    if (icons) icons.classList.add('hero-icons');
+    // the leading paragraph that holds the brand logo image -> logo row
+    const logo = [...contentCell.querySelectorAll('p')].find((p) => p.querySelector('img, picture'));
+    if (logo) logo.classList.add('hero-logo');
     // style button groups
     contentCell.querySelectorAll('p.button-wrapper a').forEach((a, i) => {
       a.classList.add('button');

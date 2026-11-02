@@ -4,7 +4,9 @@ function decorateInterest(block) {
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
-    const pic = row.querySelector('picture');
+    const pics = row.querySelectorAll('picture');
+    const bg = pics[0];
+    const cardArt = pics[1];
     const link = row.querySelector('a');
     const href = link ? link.getAttribute('href') : null;
     // title = first heading or strong text
@@ -18,15 +20,21 @@ function decorateInterest(block) {
     if (href) a.href = href;
     const media = document.createElement('div');
     media.className = 'card-tile-media';
-    if (pic) media.append(pic);
+    if (bg) media.append(bg);
+    a.append(media);
+    if (cardArt) {
+      const art = document.createElement('div');
+      art.className = 'card-tile-art';
+      art.append(cardArt);
+      a.append(art);
+    }
     const overlay = document.createElement('div');
     overlay.className = 'card-tile-overlay';
     overlay.innerHTML = `<span class="card-tile-title">${title}</span><span class="card-tile-cta">${cta}</span>`;
-    a.append(media, overlay);
+    a.append(overlay);
     li.append(a);
     ul.append(li);
   });
-  ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
   block.replaceChildren(ul);
 }
 
