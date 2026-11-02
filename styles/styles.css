@@ -114,6 +114,7 @@ h1 { font-size: var(--heading-font-size-xxl); }
 
 h2 {
   font-size: var(--heading-font-size-xl);
+  font-weight: 300;
   line-height: 1.25;
 }
 
