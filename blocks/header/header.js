@@ -31,11 +31,12 @@ export default async function decorate(block) {
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
   const sections = [...nav.children];
-  const [brandWrap, segmentsWrap, toolsWrap, menuWrap] = sections;
+  const [brandWrap, segmentsWrap, toolsWrap] = sections;
+  // every section after tools is a mega-menu category (the DA pipeline emits one per category)
+  const menuSections = sections.slice(3);
   if (brandWrap) brandWrap.classList.add('nav-brand');
   if (segmentsWrap) segmentsWrap.classList.add('nav-segments');
   if (toolsWrap) toolsWrap.classList.add('nav-tools');
-  if (menuWrap) menuWrap.classList.add('nav-menu');
 
   // --- segments: mark active + icon-less ---
   if (segmentsWrap) {
@@ -85,24 +86,29 @@ export default async function decorate(block) {
     toolsWrap.append(signin);
   }
 
-  // --- build mega menu from h2/h3 structure ---
-  if (menuWrap) {
+  // --- build mega menu from the remaining sections (each section = one category) ---
+  if (menuSections.length) {
+    const menuWrap = document.createElement('div');
+    menuWrap.className = 'nav-menu';
     const items = [];
     let current = null;
-    [...menuWrap.children].forEach((child) => {
-      if (child.tagName === 'H2') {
-        current = { head: child, cols: [] };
-        items.push(current);
-      } else if (current) {
-        if (child.tagName === 'H3') current.cols.push({ title: child, links: null });
-        else if (child.tagName === 'UL') {
-          if (current.cols.length && !current.cols[current.cols.length - 1].links) {
-            current.cols[current.cols.length - 1].links = child;
-          } else {
-            current.cols.push({ title: null, links: child });
+    menuSections.forEach((sec) => {
+      // h2/h3/ul live inside a default-content-wrapper after section decoration
+      [...sec.querySelectorAll('h2, h3, ul')].forEach((child) => {
+        if (child.tagName === 'H2') {
+          current = { head: child, cols: [] };
+          items.push(current);
+        } else if (current) {
+          if (child.tagName === 'H3') current.cols.push({ title: child, links: null });
+          else if (child.tagName === 'UL') {
+            if (current.cols.length && !current.cols[current.cols.length - 1].links) {
+              current.cols[current.cols.length - 1].links = child;
+            } else {
+              current.cols.push({ title: null, links: child });
+            }
           }
         }
-      }
+      });
     });
     const ul = document.createElement('ul');
     ul.className = 'nav-menu-list';
@@ -152,8 +158,9 @@ export default async function decorate(block) {
       }
       ul.append(li);
     });
-    menuWrap.textContent = '';
+    menuSections.forEach((sec) => sec.remove());
     menuWrap.append(ul);
+    nav.append(menuWrap);
   }
 
   // overlay
