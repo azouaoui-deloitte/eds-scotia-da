@@ -153,6 +153,13 @@
   flex: 1;
 }
 
+/* prod gives the marketing cards a tall uniform height so the link sits at the bottom */
+@media (width >= 992px) {
+  .cards.marketing > ul > li {
+    min-height: 490px;
+  }
+}
+
 .cards.marketing .card-mkt-badge {
   position: absolute;
   top: 16px;
