@@ -23,7 +23,7 @@
   border: 0;
   border-bottom: 3px solid transparent;
   padding: 20px 4px;
-  font-family: var(--bold-font-family);
+  font-family: var(--body-font-family);
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.2px;

@@ -75,7 +75,7 @@ header .nav-brand {
   grid-area: brand;
   display: flex;
   align-items: center;
-  padding: 16px 0;
+  padding: 24px 0;
 }
 
 header .nav-brand img {
@@ -89,7 +89,7 @@ header .nav-tools {
   align-items: center;
   justify-content: flex-end;
   gap: 22px;
-  padding: 16px 0;
+  padding: 24px 0;
 }
 
 header .nav-search {
