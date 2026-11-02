@@ -1,6 +1,40 @@
 import { loadCSS } from '../../scripts/aem.js';
 import decorateCards from '../cards/cards.js';
 
+/**
+ * When a `cards` block is authored inside a tab cell, the EDS/DA content pipeline
+ * flattens it into loose default content (picture + heading + paragraphs per card,
+ * with the wrapping block div removed). This rebuilds a proper
+ * `<div class="cards marketing">` block out of that flattened content so the cards
+ * block decorator and styles apply. A new card starts at every element containing
+ * a <picture>.
+ */
+function rebuildCards(panel) {
+  const content = [...panel.children];
+  const splitIdx = content.findIndex((el) => el.querySelector && el.querySelector('picture'));
+  if (splitIdx < 0) return null;
+
+  const block = document.createElement('div');
+  block.className = 'cards marketing block';
+  let row = null;
+  content.slice(splitIdx).forEach((el) => {
+    const pic = el.querySelector ? el.querySelector('picture') : null;
+    if (pic) {
+      row = document.createElement('div');
+      const imgDiv = document.createElement('div');
+      imgDiv.append(pic);
+      const bodyDiv = document.createElement('div');
+      row.append(imgDiv, bodyDiv);
+      block.append(row);
+      el.remove(); // drop the now-empty wrapper paragraph
+    } else if (row) {
+      row.lastElementChild.append(el); // move into the current card body
+    }
+  });
+  panel.append(block);
+  return block;
+}
+
 export default async function decorate(block) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/cards/cards.css`);
 
@@ -35,8 +69,10 @@ export default async function decorate(block) {
     if (i !== 0) panel.hidden = true;
     while (panelContent.firstElementChild) panel.append(panelContent.firstElementChild);
 
-    // decorate nested cards
-    panel.querySelectorAll('.cards').forEach((c) => decorateCards(c));
+    // Rebuild a cards block from the flattened content, then decorate it.
+    let cards = panel.querySelector('.cards');
+    if (!cards) cards = rebuildCards(panel);
+    if (cards) decorateCards(cards);
 
     btn.addEventListener('click', () => {
       tablist.querySelectorAll('[role="tab"]').forEach((t) => { t.setAttribute('aria-selected', 'false'); t.tabIndex = -1; });
