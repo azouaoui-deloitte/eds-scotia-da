@@ -263,7 +263,7 @@ main .section:has(.tabs) .cards.featured {
 
 /* prod Featured description/disclaimer copy is 16px/24 (not the 15/22.5 default); matching it
    makes the cards wrap to prod's line counts so natural mobile heights reach 426-513 */
-.cards.featured .cards-card-body p:not(.cards-card-badge) {
+.cards.featured:not(.article) .cards-card-body p:not(.cards-card-badge) {
   font-size: 16px;
   line-height: 1.5;
   color: #4a4a4a;
@@ -348,6 +348,7 @@ main .section:has(.tabs) .cards.featured {
 }
 
 /* push the CTA paragraph to the bottom of the card, like prod */
+/* stylelint-disable-next-line no-descending-specificity */
 .cards.featured .cards-card-body > p:last-of-type {
   margin-top: auto;
   padding-top: 12px;
