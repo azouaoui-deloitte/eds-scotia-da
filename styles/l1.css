@@ -157,7 +157,7 @@ main:has(> .section.l1) {
     align-items: center;
     justify-content: center;
     gap: 22px;
-    margin: 61px 0 30px;
+    margin: 61px 0 22px;
     font-size: 16px;
     line-height: 24px;
   }
@@ -663,18 +663,26 @@ main:has(> .section.l1) {
 
     .section.subnav ul {
       width: 100%;
-      justify-content: space-between;
+      justify-content: flex-start;
       padding: 0;
+      overflow-x: auto;
       border-width: 1px 0;
       box-shadow: none;
+      white-space: nowrap;
+      scrollbar-width: none;
     }
 
     .section.subnav li {
-      padding: 0;
+      flex: 0 0 auto;
+      padding: 0 20px 0 0;
+    }
+
+    .section.subnav li:first-child {
+      padding-left: 0;
     }
 
     .section.subnav a:any-link {
-      padding: 18px 8px 15px;
+      padding: 18px 10px 15px;
       font-size: 16px;
     }
   }
@@ -720,6 +728,13 @@ main:has(> .section.l1) {
     }
   }
 
+  /* the personal page's 900-1109px side gutter (styles.css) must not change the L1 grid */
+  @media (width >= 900px) and (width < 1110px) {
+    .section:not(:has(.hero.block), .wide) > div {
+      padding: 0;
+    }
+  }
+
   @media (width >= 1200px) {
     .l1-pager {
       display: none;
@@ -735,6 +750,17 @@ main:has(> .section.l1) {
 
     .section.split {
       grid-template-columns: 350px 730px;
+    }
+  }
+
+  /* keep the L1 grid (930 container, no gutters) against the personal page's 900-1109 gutter rule */
+  @media (width >= 900px) and (width < 1110px) {
+    > .section:not(:has(.hero.block)) > div {
+      padding: 0;
+    }
+
+    > .section.wide:not(:has(.hero.block)) > div {
+      padding: 0 32px;
     }
   }
 }
