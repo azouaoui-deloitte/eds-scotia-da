@@ -211,6 +211,7 @@ async function loadLazy(doc) {
   // eslint-disable-next-line import/no-cycle
   // eslint-disable-next-line import/no-cycle
   if (main.querySelector('a[href*="/modals/"], a[href*="/tooltips/"]')) import('./l1-modal.js').then((m) => m.default(main));
+  if (main.querySelector('.section.subnav-select')) import('./l1-subnav.js').then((m) => m.default(main));
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
