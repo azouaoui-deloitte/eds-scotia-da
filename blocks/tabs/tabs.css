@@ -34,10 +34,21 @@
   border-bottom-color: #d3242f;
 }
 
+/* prod ships Scotiabank-Regular at 400 only, so its bold tab labels are synthesised from the
+   Regular face (lighter than the Bold file the shared family maps 700 to) */
+@font-face {
+  font-family: scotiabank-regular-synth;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../fonts/Scotia_W_Rg.woff2') format('woff2'), url('../../fonts/Scotia_W_Rg.woff') format('woff');
+}
+
 /* personal (default) tab bar: prod rec--tab - 15px #2b2b2b labels that embolden on hover/focus
    (no colour change); the selected tab is bold over a 2px red rule (padding +1 keeps the
    height); keyboard focus shows the 5px ring, mouse focus/press none */
 .tabs.block:not(.pills, .panels) .tabs-tab {
+  font-family: scotiabank-regular-synth, var(--body-font-family);
   font-size: 15px;
   color: #2b2b2b;
 }
@@ -62,6 +73,73 @@
   font-weight: 700;
   border-bottom: 2px solid #ed0722;
   padding-bottom: 7px;
+}
+
+/* prod rec--tablist: no divider, a 32px row whose labels (normal line height, -0.2px, 8px under
+   the text) sit 3px from its top and 32px apart */
+@media (width >= 992px) {
+  .tabs.block:not(.pills, .panels) .tabs-list {
+    box-sizing: border-box;
+    height: 32px;
+    align-items: flex-start;
+    gap: 8px 32px;
+    padding-top: 3px;
+    border-bottom: 0;
+  }
+
+  .tabs.block:not(.pills, .panels) .tabs-tab {
+    padding: 0 0 8px;
+    border-bottom: 0;
+    line-height: normal;
+    letter-spacing: -0.2px;
+  }
+
+  .tabs.block:not(.pills, .panels) .tabs-tab[aria-selected="true"] {
+    padding-bottom: 8px;
+  }
+}
+
+/* below 992 prod's rec--tablist is one native horizontal scroller (no wrap, no divider, visible
+   scrollbar): 16px above/below each label, labels 32px apart, the active one over the 2px red
+   rule; tablet centres the row, mobile bleeds it to the viewport edges (labels inset 16px)
+   under a soft shadow and starts it flush left */
+@media (width < 992px) {
+  .tabs.block:not(.pills, .panels) .tabs-list {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0 32px;
+    overflow-x: auto;
+    border-bottom: 0;
+  }
+
+  .tabs.block:not(.pills, .panels) .tabs-tab {
+    flex: none;
+    padding: 16px 0;
+    border-bottom: 0;
+    line-height: normal;
+    letter-spacing: -0.2px;
+    white-space: nowrap;
+  }
+
+  .tabs.block:not(.pills, .panels) .tabs-tab[aria-selected="true"] {
+    padding-bottom: 16px;
+  }
+}
+
+/* tablet: prod's centred row carries ~15px more on its right (labels sit 7px left of centre) */
+@media (width >= 768px) and (width < 992px) {
+  .tabs.block:not(.pills, .panels) .tabs-list {
+    padding-right: 15px;
+  }
+}
+
+@media (width < 768px) {
+  .tabs.block:not(.pills, .panels) .tabs-list {
+    justify-content: flex-start;
+    margin-inline: -16px;
+    padding-inline: 16px 32px;
+    box-shadow: 0 2px 10px rgb(0 40 80 / 7%);
+  }
 }
 
 .tabs.block .tabs-panel {

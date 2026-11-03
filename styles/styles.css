@@ -366,8 +366,16 @@ main .section:has(.tabs) {
    rec--tab-component panel; from 1024 it is a 8px-rounded card that overhangs the band by 48px,
    below 1024 it fills the band. The band sits 148px above the CDIC line. */
 /* stylelint-disable no-descending-specificity */
+
+/* prod's page renders with grayscale anti-aliasing (thinner glyphs than the subpixel default) */
+main:has(.cards.interest) {
+  -webkit-font-smoothing: antialiased;
+}
+
 main > .section:has(.cards.interest) {
-  margin-top: 27px;
+  margin: 0;
+  padding: 27px 0 72px;
+  background: #f5f6fc;
 }
 
 main > .section:has(.cards.interest) > .default-content-wrapper > h2:first-child {
@@ -380,7 +388,7 @@ main > .section:has(.cards.interest) > .default-content-wrapper > h2:first-child
 main > .section:has(.tabs.block:not(.pills, .panels)) {
   position: relative;
   z-index: 1; /* the panel overhang paints over the next section */
-  margin: 72px 0 -21px; /* -21 collapses with the next section's 40px top margin -> 19px */
+  margin: 0 0 -21px; /* -21 collapses with the next section's 40px top margin -> 19px */
   padding: 0 0 46px;
 }
 
@@ -404,8 +412,11 @@ main > .section:has(.tabs.block:not(.pills, .panels))::before {
 }
 
 @media (width >= 1024px) {
+  main > .section:has(.cards.interest) {
+    padding-bottom: 63px;
+  }
+
   main > .section:has(.tabs.block:not(.pills, .panels)) {
-    margin-top: 63px;
     padding: 36px 0 30px;
   }
 
@@ -420,6 +431,29 @@ main > .section:has(.tabs.block:not(.pills, .panels))::before {
 @media (width >= 1200px) {
   main > .section:has(.tabs.block:not(.pills, .panels))::before {
     width: 1154px;
+  }
+}
+
+/* desktop: prod's CDIC line sits 12px under the white panel (the -1 collapses with the next
+   section's 40px top margin -> 39px) */
+@media (width >= 1024px) {
+  main > .section:has(.tabs.block:not(.pills, .panels)) {
+    margin-bottom: -1px;
+  }
+
+  main > .section:has(.tabs.block:not(.pills, .panels)) ~ .section.legal {
+    margin-bottom: 20px;
+  }
+
+  /* the empty trailing (metadata) section must not re-add its 40px margins */
+  main > .section:has(.tabs.block:not(.pills, .panels)) ~ .section.legal ~ .section:empty {
+    margin: 0;
+  }
+}
+
+@media (width >= 1536px) {
+  main > .section:has(.tabs.block:not(.pills, .panels))::before {
+    width: 1357px;
   }
 }
 /* stylelint-enable no-descending-specificity */
