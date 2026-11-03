@@ -37,7 +37,25 @@ function decorateSplit(block) {
   if (imageRow) {
     imageRow.className = 'hero-image';
     const imgs = [...imageRow.querySelectorAll('img')];
-    if (imgs.length) imageRow.replaceChildren(buildArtDirectedPicture(imgs));
+    if (imgs.length) {
+      // prod breakpoints: desktop >= 992px, tablet 768-991px, mobile <= 767px
+      const base = (img) => img.getAttribute('src').split('?')[0];
+      const [desktop, tablet = desktop, mobile = tablet] = imgs;
+      const pic = document.createElement('picture');
+      [[mobile, '(max-width: 767px)', 800], [tablet, '(max-width: 991px)', 1200]].forEach(([im, media, w]) => {
+        const src = document.createElement('source');
+        src.media = media;
+        src.type = 'image/webp';
+        src.srcset = `${base(im)}?width=${w}&format=webply&optimize=medium`;
+        pic.append(src);
+      });
+      const img = document.createElement('img');
+      img.loading = 'eager';
+      img.alt = desktop.getAttribute('alt') || '';
+      img.src = `${base(desktop)}?width=2000&format=webply&optimize=medium`;
+      pic.append(img);
+      imageRow.replaceChildren(pic);
+    }
   }
   if (!contentRow) return;
   contentRow.className = 'hero-content';
