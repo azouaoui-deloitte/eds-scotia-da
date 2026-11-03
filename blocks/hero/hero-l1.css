@@ -55,10 +55,20 @@ main .hero.block.split > .hero-content {
   }
 }
 
-/* DA hero.css lays .hero-content out as a flex column: keep the xwalk block flow (full-width
-   copy column) and a CTA paragraph as tall as its button */
-main .hero.block.split .hero-content {
-  display: block;
+/* DA hero.css lays .hero-content out as a flex column: keep the xwalk flow - block below 992px
+   (full-width copy column), copy centred vertically from 992px - and a CTA paragraph as tall
+   as its button */
+@media (width <= 991px) {
+  main .hero.block.split .hero-content {
+    display: block;
+  }
+}
+
+@media (width >= 992px) {
+  main .hero.block.split .hero-content {
+    box-sizing: border-box;
+    justify-content: center;
+  }
 }
 
 main .hero.block.split .hero-content p.hero-cta {
