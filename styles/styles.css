@@ -84,8 +84,23 @@ body.appear {
   display: block;
 }
 
+/* the header box follows its content (prod: topbar + main bar + menu = ~200px from 992px) so it
+   never overlaps the page; below 992px the main bar is fixed (60 / 90px) and the box reserves
+   its height. min-heights also hold the space while the header block loads. */
 header {
-  height: var(--nav-height);
+  min-height: 60px;
+}
+
+@media (width >= 768px) {
+  header {
+    min-height: 90px;
+  }
+}
+
+@media (width >= 992px) {
+  header {
+    min-height: 200px;
+  }
 }
 
 header .header,
