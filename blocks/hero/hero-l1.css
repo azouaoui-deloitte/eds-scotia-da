@@ -215,13 +215,8 @@ main .hero.block.split .hero-image img {
     text-align: center;
   }
 
-  main .hero.block.split.center-mobile h1 {
-    font-size: 32px;
-    line-height: 35.2px;
-  }
-
   main .hero.block.split .hero-content {
-    padding: 72px 20px 52px;
+    padding: 72px 20px 80px;
   }
 }
 
@@ -233,7 +228,7 @@ main .hero.block.split .hero-image img {
   }
 
   main .hero.block.split .hero-content {
-    padding: 72px 39px 70px;
+    padding: 72px 39px 80px;
   }
 
   main .hero.block.split .hero-content-inner {
@@ -245,6 +240,10 @@ main .hero.block.split .hero-image img {
 @media (width >= 768px) and (width <= 991px) {
   main .hero.block.split.no-image-tablet .hero-image {
     display: none;
+  }
+
+  main .hero.block.split.center-tablet .hero-content {
+    text-align: center;
   }
 
   main .hero.block.split.tablet-natural .hero-image {
@@ -293,11 +292,26 @@ main .hero.block.split .hero-image img {
     padding-bottom: 27px;
   }
 
+  main .hero.block.split.ratio .hero-content-inner {
+    padding-bottom: 11px;
+  }
+
   main .hero.block.split.aura .hero-content {
     background: transparent;
   }
 
   main .hero.block.split .hero-content p.hero-cta {
-    margin-top: 20px;
+    margin-top: 31px;
   }
+}
+
+/* smaller prod title component (investing 37px, Advice+ 36px at every width) */
+main .hero.block.split.title-s :is(h1, h2) {
+  font-size: 37px;
+  line-height: 40.7px;
+}
+
+main .hero.block.split.title-xs :is(h1, h2) {
+  font-size: 36px;
+  line-height: 39.6px;
 }

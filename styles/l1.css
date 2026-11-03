@@ -157,7 +157,7 @@ main:has(> .section.l1) {
     align-items: center;
     justify-content: center;
     gap: 22px;
-    margin: 31px 0 22px;
+    margin: 61px 0 30px;
     font-size: 16px;
     line-height: 24px;
   }
@@ -215,13 +215,17 @@ main:has(> .section.l1) {
     background: #fafbfd;
   }
 
+  .section.grey .accordion:not(.footnotes) .accordion-item {
+    background: #fff;
+  }
+
   .section.beige {
     padding: 30px 0 60px;
     background: #f6f0ea;
   }
 
   .section.dark {
-    padding: 27px 0 9px;
+    padding: 27px 0 23px;
     background: #333;
     color: #fff;
   }
@@ -368,7 +372,7 @@ main:has(> .section.l1) {
     display: grid;
     grid-template-columns: 1fr auto;
     column-gap: 30px;
-    align-items: baseline;
+    align-items: start;
   }
 
   .section.heading-link .default-content-wrapper > h2 + p {
@@ -389,7 +393,7 @@ main:has(> .section.l1) {
   }
 
   .section.dark .default-content-wrapper > h2 + p {
-    margin: 0 0 20px;
+    margin: 0 0 28px;
     font-size: 16px;
     line-height: 24px;
   }
@@ -562,6 +566,12 @@ main:has(> .section.l1) {
       padding: 0 30px;
     }
 
+    .section > div > h2,
+    .section .default-content-wrapper > h2 {
+      font-size: 35px;
+      line-height: 38.5px;
+    }
+
     .section.floating {
       inset: auto auto 30px 22px;
     }
@@ -579,7 +589,7 @@ main:has(> .section.l1) {
     }
 
     .section.subnav {
-      margin-top: 0;
+      margin-top: -30px;
     }
 
     .section.subnav > div {
@@ -594,9 +604,13 @@ main:has(> .section.l1) {
       box-shadow: none;
     }
 
+    .section.subnav li {
+      padding: 0;
+    }
+
     .section.subnav a:any-link {
-      padding: 10px 8px 9px;
-      font-size: 14px;
+      padding: 18px 8px 15px;
+      font-size: 16px;
     }
   }
 
