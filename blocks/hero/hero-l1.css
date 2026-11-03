@@ -55,6 +55,16 @@ main .hero.block.split > .hero-content {
   }
 }
 
+/* DA hero.css lays .hero-content out as a flex column: keep the xwalk block flow (full-width
+   copy column) and a CTA paragraph as tall as its button */
+main .hero.block.split .hero-content {
+  display: block;
+}
+
+main .hero.block.split .hero-content p.hero-cta {
+  line-height: 0;
+}
+
 /* colour panel with the text on the left half, photo on the right (desktop); photo band on top
    of the panel on tablet; panel only on mobile. Colours: maroon (default), sky, gold, aura. */
 /* stylelint-disable no-descending-specificity */
