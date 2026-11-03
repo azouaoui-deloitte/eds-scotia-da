@@ -26,7 +26,45 @@ function buildArtDirectedPicture(imgs) {
   return pic;
 }
 
+/**
+ * "split" variant (L1 category pages), same DOM as the xwalk sibling: rows [images] [text]
+ * -> .hero-image (desktop / tablet / mobile crops in one picture)
+ * + .hero-content > .hero-content-inner.
+ * Only links standing alone in their paragraph become CTAs.
+ */
+function decorateSplit(block) {
+  const [imageRow, contentRow] = block.children;
+  if (imageRow) {
+    imageRow.className = 'hero-image';
+    const imgs = [...imageRow.querySelectorAll('img')];
+    if (imgs.length) imageRow.replaceChildren(buildArtDirectedPicture(imgs));
+  }
+  if (!contentRow) return;
+  contentRow.className = 'hero-content';
+  const inner = contentRow.firstElementChild || contentRow;
+  inner.classList.add('hero-content-inner');
+  const first = inner.firstElementChild;
+  if (first?.tagName === 'P' && first.nextElementSibling?.matches('h1, h2')) {
+    first.classList.add('hero-eyebrow');
+  }
+  inner.querySelector('h1 + p, h2 + p')?.classList.add('hero-lead');
+  const brand = inner.querySelector('picture');
+  if (brand) brand.closest('p')?.classList.add('hero-brands');
+  [...inner.querySelectorAll('p')].filter((p) => {
+    const a = p.querySelector('a');
+    return a && p.textContent.trim() === a.textContent.trim();
+  }).forEach((p, i) => {
+    const a = p.querySelector('a');
+    a.classList.add('button', i === 0 ? 'primary' : 'secondary');
+    p.classList.add('hero-cta');
+  });
+}
+
 export default function decorate(block) {
+  if (block.classList.contains('split')) {
+    decorateSplit(block);
+    return;
+  }
   const row = block.querySelector(':scope > div');
   if (!row) return;
   const cells = [...row.children];
