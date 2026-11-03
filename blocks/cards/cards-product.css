@@ -232,6 +232,13 @@
   gap: 32px;
 }
 
+/* compare cards: one column below 992px (prod 704px tiles at 768) */
+@media (width < 992px) {
+  .cards.product.compare > ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .cards.product.compare > ul > li {
   margin-top: 0;
   padding: 26px 18px 27px;
@@ -328,6 +335,7 @@
 }
 
 .cards.product.compare .cards-card-body p:has(> em:only-child) {
+  display: flow-root;
   margin: -4px 0 8px;
   padding: 8px 12px;
   background: #f8f8f5;
@@ -342,9 +350,9 @@
   margin: 0;
 }
 
-.cards.product.compare .cards-card-body .button-wrapper:first-of-type {
+.cards.product.compare .cards-card-body p:not(.button-wrapper) + .button-wrapper {
   margin-top: auto;
-  padding-top: 44px;
+  padding-top: 36px;
 }
 
 .cards.product.compare .cards-card-body .button-wrapper + .button-wrapper {
@@ -352,13 +360,14 @@
 }
 
 .cards.product.compare a.button:any-link {
-  padding: 8px 16px;
+  min-height: 0;
+  padding: 7px 16px;
   font-size: 16px;
   line-height: 24px;
 }
 
 .cards.product.compare a.button.secondary:any-link {
-  padding: 8px 16px 9px;
+  padding: 8px 16px;
   border-color: #949494;
 }
 
@@ -380,4 +389,75 @@
 .cards.product.compare + .cards-product-more,
 .cards.product.compare .cards-product-more {
   margin-top: 40px;
+}
+
+/* category label (first body cell): directly under the card art */
+.cards.product.compare > ul > li > .cards-card-body:first-child > p:only-child {
+  margin: 0;
+}
+
+/* offer box superscripts keep their line box (prod lines with a footnote mark are ~2px taller) */
+.cards.product.compare .cards-card-body p:has(> strong:first-child + br) sup {
+  line-height: normal;
+}
+
+/* prod 32px toggletip button (24px info icon): sets the 48px note box / 32px value row */
+.cards.product.compare .cards-card-body p a.l1-tooltip-link:any-link {
+  width: 32px;
+  height: 32px;
+  margin: 0 0 0 4px;
+  background-size: 24px;
+  vertical-align: middle;
+}
+
+.cards.product.compare .cards-card-body p > em a.l1-tooltip-link:any-link {
+  float: right;
+  margin: 0 0 0 8px;
+}
+
+.cards.product.compare .cards-card-body p:has(> strong:last-child a.l1-tooltip-link) {
+  align-items: center;
+}
+
+@media (width < 992px) {
+  .cards.product.compare .cards-card-body p:has(> em:only-child) {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .cards.product.compare .cards-card-body p:not(.button-wrapper) + .button-wrapper {
+    padding-top: 16px;
+  }
+}
+
+/* personal page Credit cards tab: prod card-clickable states (the CTA's hit area covers the
+   card; hovering drops the shadow, zooms the art for 0.5s and underlines the CTA). The
+   credit-cards page's compare grid keeps its own states. */
+.cards.product:not(.compare) > ul > li {
+  transition: 0.3s;
+}
+
+.cards.product:not(.compare) > ul > li:hover {
+  box-shadow: 0 0 0 0 rgb(0 0 0 / 10%);
+}
+
+.cards.product:not(.compare) .cards-card-image {
+  overflow: hidden;
+}
+
+.cards.product:not(.compare) > ul > li:hover .cards-card-image img {
+  transform: scale(1.1);
+  transition: transform 0.5s;
+}
+
+.cards.product:not(.compare) .cards-card-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.cards.product:not(.compare) .cards-card-body:last-child a:any-link:not(.button):hover {
+  color: #005e80;
+  text-underline-position: under;
+  text-underline-offset: 2px;
 }
