@@ -2,48 +2,48 @@
 
 /* stylelint-disable no-descending-specificity */
 
-/* Scotiabank hero — prod full-bleed layout: on desktop the art-directed image spans the
+/* split heroes (L1 pages; hero-l1.css refines them) — prod full-bleed layout: on desktop the art-directed image spans the
    hero and a light panel (~50%) on the left carries the text; stacked below 992px. */
-.hero.block {
+.hero.block:where(.split) {
   background: #f2f2f2;
 }
 
-.hero.block > div {
+.hero.block:where(.split) > div {
   display: flex;
   flex-direction: column;
 }
 
-.hero .hero-media {
+.hero:where(.split) .hero-media {
   order: -1;
   margin: 0;
   line-height: 0;
 }
 
-.hero .hero-media img,
-.hero .hero-media picture {
+.hero:where(.split) .hero-media img,
+.hero:where(.split) .hero-media picture {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.hero .hero-content {
+.hero:where(.split) .hero-content {
   padding: 24px 20px 32px;
   display: flex;
   flex-direction: column;
 }
 
-.hero .hero-logo {
+.hero:where(.split) .hero-logo {
   margin: 0 0 8px;
   line-height: 0;
 }
 
-.hero .hero-logo img,
-.hero .hero-logo picture {
+.hero:where(.split) .hero-logo img,
+.hero:where(.split) .hero-logo picture {
   width: auto;
   height: 40px;
 }
 
-.hero .hero-content h1 {
+.hero:where(.split) .hero-content h1 {
   font-family: var(--heading-font-family);
   font-size: 40px;
   line-height: 44px;
@@ -53,34 +53,34 @@
 }
 
 @media (width >= 768px) {
-  .hero .hero-content h1 {
+  .hero:where(.split) .hero-content h1 {
     font-size: 46px;
     line-height: 50.6px;
   }
 }
 
-.hero .hero-content > p {
+.hero:where(.split) .hero-content > p {
   font-size: 16px;
   line-height: 1.5;
   color: #333;
   margin: 0 0 8px;
 }
 
-.hero .hero-cta-row {
+.hero:where(.split) .hero-cta-row {
   display: flex;
   flex-wrap: wrap;
 }
 
-.hero .hero-cta-group {
+.hero:where(.split) .hero-cta-group {
   margin: 8px 28px 0 0;
 }
 
-.hero .hero-cta-label {
+.hero:where(.split) .hero-cta-label {
   margin: 0 !important;
   font-size: 16px;
 }
 
-.hero .hero-content a.button {
+.hero:where(.split) .hero-content a.button {
   display: block;
   margin-top: 8px;
   padding: 12px 28px;
@@ -91,26 +91,26 @@
   text-align: center;
 }
 
-.hero .hero-content a.button.primary {
+.hero:where(.split) .hero-content a.button.primary {
   background: #1b1b1b;
   color: #fff;
   border: 2px solid #1b1b1b;
 }
 
-.hero .hero-content a.button.secondary {
+.hero:where(.split) .hero-content a.button.secondary {
   background: transparent;
   color: #1b1b1b;
   border: 2px solid #1b1b1b;
 }
 
 @media (width >= 992px) {
-  .hero.block > div {
+  .hero.block:where(.split) > div {
     position: relative;
     display: block;
     min-height: 432px;
   }
 
-  .hero .hero-media {
+  .hero:where(.split) .hero-media {
     position: absolute;
     inset: 0;
     order: 0;
@@ -118,14 +118,14 @@
     height: 100%;
   }
 
-  .hero .hero-media img {
+  .hero:where(.split) .hero-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: right center;
   }
 
-  .hero .hero-content {
+  .hero:where(.split) .hero-content {
     position: relative;
     z-index: 1;
     box-sizing: border-box;
@@ -136,12 +136,12 @@
     padding: 24px 40px 24px max(24px, calc((100% - 1110px) / 2));
   }
 
-  .hero .hero-content h1 {
+  .hero:where(.split) .hero-content h1 {
     font-size: 46px;
     letter-spacing: -1px;
   }
 
-  .hero .hero-cta-group {
+  .hero:where(.split) .hero-cta-group {
     width: 253px;
     margin: 8px 0 0;
   }
@@ -155,4 +155,224 @@ main > .section.hero-container {
 main > .section.hero-container > div {
   max-width: none;
   padding: 0;
+}
+
+/* default hero (personal page): same DOM and rules as the xwalk sibling (hero.js decorateDefault) */
+.hero.block:not(.split) {
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--scotia-grey-bg, #f4f4f4);
+  overflow: hidden;
+}
+
+.hero.block:not(.split) .hero-image {
+  order: -1;
+  margin: 0;
+}
+
+.hero.block:not(.split) .hero-image picture {
+  display: block;
+}
+
+.hero.block:not(.split) .hero-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero.block:not(.split) .hero-content {
+  padding: 24px 20px 32px;
+}
+
+.hero.block:not(.split) .hero-content-inner {
+  max-width: 560px;
+}
+
+.hero.block:not(.split) .hero-brands img {
+  width: auto;
+  height: 40px;
+  margin-bottom: 8px;
+}
+
+.hero.block:not(.split) h1 {
+  font-size: 40px;
+  line-height: 44px;
+  margin: 0 0 8px;
+  color: var(--text-color);
+  text-wrap: balance;
+}
+
+/* mobile hero image shows at its natural aspect (prod band ~293px at 375w) */
+@media (width <= 767px) {
+  .hero.block:not(.split) .hero-image img {
+    height: auto;
+  }
+
+  .hero.block:not(.split) .hero-content {
+    padding: 20px 14px 28px;
+  }
+
+  /* nudge the CTA row down to prod's y (it sits ~10px high on mobile) */
+  .hero.block:not(.split) .hero-content-inner > p:nth-of-type(2) {
+    margin-bottom: 18px;
+  }
+}
+
+@media (width >= 768px) {
+  .hero.block:not(.split) h1 {
+    font-size: 46px;
+    line-height: 50.6px;
+  }
+
+  /* prod spreads the two CTA groups into side-by-side columns (Already a client? left,
+     Not a client yet? at ~x384); fixed-width columns reproduce that pitch */
+  .hero.block:not(.split) .hero-cta {
+    width: 253px;
+  }
+}
+
+.hero.block:not(.split) .hero-content p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  margin: 0 0 8px;
+}
+
+.hero.block:not(.split) .hero-cta {
+  display: inline-block;
+  vertical-align: top;
+  margin: 8px 28px 0 0;
+}
+
+/* prod stacks the CTA button under its "Already a client?" / "Not a client yet?" label */
+.hero.block:not(.split) .hero-cta a.button {
+  display: block;
+  margin-top: 40px;
+}
+
+.hero.block:not(.split) a.button {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 24px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  vertical-align: top;
+}
+
+/* personal (default) hero: prod bns_button states - #333 with a 1px border (padding +1 keeps
+   the box size); hover and focus invert the fill (secondary eases over 0.2s) */
+.hero.block:not(.split) a.button.primary,
+.hero.block:not(.split) a.button.secondary {
+  padding: 13px 29px;
+  border: 1px solid #333;
+}
+
+.hero.block:not(.split) a.button.primary {
+  background: #333;
+  color: #fff;
+}
+
+.hero.block:not(.split) a.button.secondary {
+  background: transparent;
+  color: #333;
+  transition: 0.2s;
+}
+
+.hero.block:not(.split) a.button.primary:hover,
+.hero.block:not(.split) a.button.primary:focus {
+  background: transparent;
+  color: #333;
+}
+
+.hero.block:not(.split) a.button.secondary:hover,
+.hero.block:not(.split) a.button.secondary:focus {
+  background: #333;
+  color: #fff;
+}
+
+/* Desktop: prod's full-bleed hero — image spans the hero, a light panel on the left
+   (~50%) carries the text (covering the image's dark band); the car shows on the right. */
+@media (width >= 992px) {
+  .hero.block:not(.split) {
+    position: relative;
+    display: block;
+    min-height: 432px;
+  }
+
+  .hero.block:not(.split) .hero-image {
+    position: absolute;
+    inset: 0;
+    order: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero.block:not(.split) .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+  }
+
+  .hero.block:not(.split) .hero-content {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    width: 50%;
+    min-height: 432px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--scotia-grey-bg, #f2f2f2);
+    padding: 24px 40px 24px max(47px, calc((100% - 1110px) / 2));
+  }
+
+  .hero.block:not(.split) .hero-content-inner {
+    max-width: 560px;
+  }
+
+  /* extra gap below the body copy so the CTA row lands at prod's y */
+  .hero.block:not(.split) .hero-content-inner > p:nth-of-type(2) {
+    margin-bottom: 20px;
+  }
+
+  /* two CTA columns side by side on prod's ~257px pitch (253 + inline-block whitespace) */
+  .hero.block:not(.split) .hero-cta {
+    width: 253px;
+    margin: 18px 0 0;
+  }
+
+  .hero.block:not(.split) h1 {
+    font-size: 46px;
+    letter-spacing: -1px;
+  }
+}
+
+/* tablet only: prod spreads the two CTA groups across the full content width (col 2 at ~x384).
+   Placed last so the pitch override wins over the base `.hero-cta` margin shorthand. */
+@media (width >= 768px) and (width < 992px) {
+  .hero.block:not(.split) .hero-content-inner {
+    max-width: 708px;
+  }
+
+  /* `.hero-content p` beats `.hero-cta`, so match the p to win the margin; apply only to the
+     first CTA group (the second is the last p) so the row doesn't overflow and wrap */
+  .hero.block:not(.split) .hero-content p.hero-cta:not(:last-of-type) {
+    margin: 8px 95px 0 0;
+  }
+}
+
+/* 1024-ish: the full-bleed panel is ~50% (narrower than 1440); prod uses 216px CTA columns so
+   both fit on one line (253px would wrap and balloon the hero height). Tighten the right
+   padding so the two 216px columns fit the ~432px inner width (prod: 47 left / 33 right). */
+@media (width >= 992px) and (width < 1200px) {
+  .hero.block:not(.split) .hero-content {
+    padding-right: 29px;
+  }
+
+  .hero.block:not(.split) .hero-cta {
+    width: 210px;
+  }
 }

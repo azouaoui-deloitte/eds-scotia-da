@@ -346,6 +346,66 @@ main .section:has(.tabs) {
   background: #f5f6fc;
 }
 
+/* personal page rhythm (prod): hero -> 27px -> "You may be interested in" -> tiles -> 63px (72px
+   below 1024) -> Featured band. The band (default tab bar) carries prod's white
+   rec--tab-component panel; from 1024 it is a 8px-rounded card that overhangs the band by 48px,
+   below 1024 it fills the band. The band sits 148px above the CDIC line. */
+/* stylelint-disable no-descending-specificity */
+main > .section:has(.cards.interest) {
+  margin-top: 27px;
+}
+
+main > .section:has(.cards.interest) > .default-content-wrapper > h2:first-child {
+  margin-top: 0;
+}
+
+main > .section:has(.tabs.block:not(.pills, .panels)) {
+  position: relative;
+  z-index: 1; /* the panel overhang paints over the next section */
+  margin: 72px 0 -21px; /* -21 collapses with the next section's 40px top margin -> 19px */
+  padding: 0 0 46px;
+}
+
+main > .section:has(.tabs.block:not(.pills, .panels))::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #fff;
+  box-shadow: 0 2px 10px rgb(0 40 80 / 7%);
+}
+
+@media (width >= 768px) {
+  main > .section:has(.tabs.block:not(.pills, .panels)) {
+    padding: 16px 0 47px;
+  }
+
+  main > .section:has(.tabs.block:not(.pills, .panels))::before {
+    inset: 0 8px;
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section:has(.tabs.block:not(.pills, .panels)) {
+    margin-top: 63px;
+    padding: 36px 0 30px;
+  }
+
+  main > .section:has(.tabs.block:not(.pills, .panels))::before {
+    inset: 0 auto -48px 50%;
+    width: min(992px, 100% - 32px);
+    transform: translateX(-50%);
+    border-radius: 8px;
+  }
+}
+
+@media (width >= 1200px) {
+  main > .section:has(.tabs.block:not(.pills, .panels))::before {
+    width: 1154px;
+  }
+}
+/* stylelint-enable no-descending-specificity */
+
 /* floating back-to-top button (purple circle), shown after scrolling — matches prod */
 .back-to-top {
   position: fixed;
@@ -361,11 +421,11 @@ main .section:has(.tabs) {
   border: none;
   border-radius: 50%;
   background: #8230df;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 25%);
+  box-shadow: 0 0 8px rgb(0 0 0 / 30%);
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease, background-color 0.2s ease;
+  transition: 0.5s;
 }
 
 .back-to-top.show {
@@ -373,10 +433,13 @@ main .section:has(.tabs) {
   visibility: visible;
 }
 
-.back-to-top:hover,
+/* prod: lifts 3px on hover; keyboard focus shows the 5px focus ring (no colour change) */
+.back-to-top:hover {
+  transform: translateY(-3px);
+}
+
 .back-to-top:focus-visible {
-  background: #6a1fb8;
-  outline: none;
+  outline: rgb(0 95 204) auto 5px;
 }
 
 .back-to-top-icon {
@@ -391,6 +454,11 @@ main .section:has(.tabs) {
 /* authorable legal/disclaimer band (CDIC) — extra vertical breathing room like prod */
 main .section.legal {
   padding: 9px 0;
+}
+
+/* personal: prod's CDIC line sits 7px closer to the footer */
+main > .section:has(.tabs.block:not(.pills, .panels)) ~ .section.legal {
+  padding-bottom: 2px;
 }
 
 main .section.legal > div {
