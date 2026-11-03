@@ -239,6 +239,14 @@ main .section:has(.tabs) .cards.featured {
   margin-top: 40px;
 }
 
+/* wide desktop: with the prod-exact header (201.39px) the DA panel copy leaves the grid ~3.5px
+   low against prod; 1px less keeps the card titles inside prod's ±3px */
+@media (width >= 1200px) {
+  main .section:has(.tabs) .cards.featured {
+    margin-top: 39px;
+  }
+}
+
 /* Featured offer tiles. Prod mobile cards are NOT uniform (426-513): 426 is the floor and
    taller content grows up to ~513. Keep the 426 floor (not a uniform fixed height) so short
    cards match prod's minimum while longer offers expand naturally. */
