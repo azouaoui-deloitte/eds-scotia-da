@@ -73,6 +73,20 @@ export default function decorate(block) {
 
   block.replaceChildren(tablist, ...panels);
 
+  // panels: below 992px the tab bar becomes a native dropdown (prod rec-tabs-select)
+  if (block.classList.contains('panels')) {
+    const select = document.createElement('select');
+    select.className = 'tabs-select';
+    select.setAttribute('aria-label', 'Select a topic');
+    panels.forEach((p, i) => select.add(new Option(p.dataset.label, String(i), i === 0, i === 0)));
+    select.addEventListener('change', () => tablist.children[Number(select.value)]?.click());
+    tablist.addEventListener('click', (e) => {
+      const tab = e.target.closest('.tabs-tab');
+      if (tab) select.value = String([...tablist.children].indexOf(tab));
+    });
+    tablist.before(select);
+  }
+
   // pills: when the pills wrap, show only the first row with a "Show more +" / "Show less -"
   // toggle (prod tablist toggle)
   if (block.classList.contains('pills')) {
