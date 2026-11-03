@@ -1,3 +1,19 @@
+import { decorateButton } from '../../scripts/scripts.js';
+
+const STYLES = ['primary', 'secondary', 'accent'];
+
+/**
+ * CTA buttons: the author's Bold (primary) / Italic (secondary) choice wins; unformatted links
+ * keep the positional default: first = primary (unless one is chosen explicitly), others secondary.
+ */
+function styleButtons(links) {
+  const styles = links.map((a) => decorateButton(a)
+    || STYLES.find((style) => a.classList.contains(style)));
+  links.forEach((a, i) => {
+    a.classList.add('button', styles[i] || (i === 0 && !styles.includes('primary') ? 'primary' : 'secondary'));
+  });
+}
+
 /**
  * "split" variant (L1 category pages), same DOM as the xwalk sibling: rows [images] [text]
  * -> .hero-image (desktop / tablet / mobile crops in one picture)
@@ -40,14 +56,12 @@ function decorateSplit(block) {
   inner.querySelector('h1 + p, h2 + p')?.classList.add('hero-lead');
   const brand = inner.querySelector('picture');
   if (brand) brand.closest('p')?.classList.add('hero-brands');
-  [...inner.querySelectorAll('p')].filter((p) => {
+  const ctas = [...inner.querySelectorAll('p')].filter((p) => {
     const a = p.querySelector('a');
     return a && p.textContent.trim() === a.textContent.trim();
-  }).forEach((p, i) => {
-    const a = p.querySelector('a');
-    a.classList.add('button', i === 0 ? 'primary' : 'secondary');
-    p.classList.add('hero-cta');
   });
+  styleButtons(ctas.map((p) => p.querySelector('a')));
+  ctas.forEach((p) => p.classList.add('hero-cta'));
 }
 
 /**
@@ -98,9 +112,8 @@ function decorateDefault(block) {
     const a = p.querySelector('a');
     return a && p.textContent.trim() === a.textContent.trim();
   });
-  ctas.forEach((p, i) => {
-    const a = p.querySelector('a');
-    a.classList.add('button', i === 0 ? 'primary' : 'secondary');
+  styleButtons(ctas.map((p) => p.querySelector('a')));
+  ctas.forEach((p) => {
     const label = p.previousElementSibling;
     if (label?.tagName === 'P' && !label.querySelector('a, picture') && !ctas.includes(label)) {
       p.prepend(`${label.textContent.trim()} `);
