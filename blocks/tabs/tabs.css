@@ -88,10 +88,26 @@
 }
 
 .tabs.block:not(.pills, .panels) .tabs-panel h2 {
-  line-height: 1.25;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: #333;
   margin: 32px 0 12px;
 }
 
+.tabs.block:not(.pills, .panels) .tabs-panel > p {
+  font-size: 17.6px;
+  line-height: 17.6px;
+  margin: 0 0 16px;
+}
+
+@media (width < 768px) {
+  .tabs.block:not(.pills, .panels) .tabs-panel h2 {
+    font-size: 35px;
+  }
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
 .tabs.block .tabs-panel > p {
   font-size: 16px;
   color: #333;
