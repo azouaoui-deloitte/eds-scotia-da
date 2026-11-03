@@ -376,3 +376,17 @@ main > .section.hero-container > div {
     width: 210px;
   }
 }
+
+/* DA: the hero section is full-bleed (no 16px section gutter below 900px like the xwalk
+   page), so the content panel carries those 16px itself to keep prod's text column */
+@media (width <= 767px) {
+  .hero.block:not(.split) .hero-content {
+    padding: 20px 30px 28px;
+  }
+}
+
+@media (width >= 768px) and (width < 900px) {
+  .hero.block:not(.split) .hero-content {
+    padding: 24px 36px 32px;
+  }
+}

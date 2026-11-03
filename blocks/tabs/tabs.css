@@ -81,6 +81,17 @@
   margin: 24px 0 4px;
 }
 
+/* personal: the active panel's heading sits 32px under the bar and 12px above its subtitle
+   with a 45px line box (prod section heading metrics) */
+.tabs.block:not(.pills, .panels) .tabs-panel {
+  padding-top: 0;
+}
+
+.tabs.block:not(.pills, .panels) .tabs-panel h2 {
+  line-height: 1.25;
+  margin: 32px 0 12px;
+}
+
 .tabs.block .tabs-panel > p {
   font-size: 16px;
   color: #333;
