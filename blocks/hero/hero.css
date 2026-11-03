@@ -43,11 +43,18 @@
 
 .hero .hero-content h1 {
   font-family: var(--heading-font-family);
-  font-size: 34px;
-  line-height: 1.1;
+  font-size: 40px;
+  line-height: 44px;
   color: var(--text-color);
   margin: 4px 0 8px;
   text-wrap: balance;
+}
+
+@media (width >= 768px) {
+  .hero .hero-content h1 {
+    font-size: 46px;
+    line-height: 50.6px;
+  }
 }
 
 .hero .hero-content > p {

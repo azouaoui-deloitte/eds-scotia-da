@@ -180,11 +180,30 @@ async function loadEager(doc) {
 }
 
 /**
+ * Adds the floating "back to top" button (purple circle, bottom-right), shown after the
+ * user scrolls past 400px, matching scotiabank.com.
+ */
+function decorateBackToTop() {
+  if (document.querySelector('.back-to-top')) return;
+  const btn = document.createElement('button');
+  btn.className = 'back-to-top';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'Back to top');
+  btn.innerHTML = '<span class="back-to-top-icon" aria-hidden="true"></span>';
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  const toggle = () => btn.classList.toggle('show', window.scrollY > 400);
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle();
+  document.body.append(btn);
+}
+
+/**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
   loadHeader(doc.querySelector('body > header'));
+  decorateBackToTop();
 
   const main = doc.querySelector('main');
   await loadSections(main);

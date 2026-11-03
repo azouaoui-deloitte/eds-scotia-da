@@ -1,85 +1,45 @@
 .tabs.block {
-  background: #fff;
-  border: 1px solid #e6e6e6;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
-  padding: 0 40px 48px;
-  max-width: 1120px;
-  margin: 0 auto;
+  margin: 0;
 }
 
-.tabs .tabs-list {
+.tabs.block .tabs-list {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  border-bottom: 1px solid #ddd;
   justify-content: center;
-  gap: 32px;
-  border-bottom: 1px solid #e1e1e1;
-  margin: 0 -40px 32px;
-  padding: 0 40px;
-  overflow-x: auto;
 }
 
-.tabs .tabs-tab {
+.tabs.block .tabs-tab {
+  appearance: none;
   background: none;
-  border: 0;
+  border: none;
   border-bottom: 3px solid transparent;
-  padding: 20px 4px;
-  font-family: var(--body-font-family);
-  font-size: 15px;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: -0.2px;
-  color: var(--heading-color);
+  padding: 6px 4px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
   cursor: pointer;
-  white-space: nowrap;
 }
 
-.tabs .tabs-tab[aria-selected='true'] {
-  color: var(--heading-color);
-  border-bottom-color: var(--scotia-red);
+.tabs.block .tabs-tab:hover,
+.tabs.block .tabs-tab:focus-visible {
+  color: #d3242f;
 }
 
-.tabs .tabs-tab:hover {
-  color: var(--scotia-red);
+.tabs.block .tabs-tab[aria-selected="true"] {
+  color: #d3242f;
+  border-bottom-color: #d3242f;
 }
 
-.tabs .tabs-panel {
+.tabs.block .tabs-panel {
+  padding: 2px 0 0;
   text-align: center;
-}
-
-.tabs .tabs-panel > h2 {
-  font-family: var(--heading-font-family);
-  font-size: 36px;
-  font-weight: 300;
-  line-height: 1.1;
   color: #333;
-  margin: 8px 0 4px;
+  font-size: 15px;
 }
 
-.tabs .tabs-panel > p {
-  color: #333;
-  margin: 0 0 28px;
-  font-size: 17.6px;
-  line-height: 1.02;
-}
-
-.tabs .tabs-panel .cards {
-  text-align: left;
-}
-
-@media (width <= 900px) {
-  .tabs.block {
-    padding: 0 16px 32px;
-    border-radius: 8px;
-  }
-
-  .tabs .tabs-list {
-    justify-content: flex-start;
-    gap: 20px;
-    margin: 0 -16px 24px;
-    padding: 0 16px;
-  }
-
-  .tabs .tabs-panel > h2 {
-    font-size: 28px;
-  }
+.tabs.block .tabs-panel a {
+  color: #d3242f;
+  font-weight: 700;
 }

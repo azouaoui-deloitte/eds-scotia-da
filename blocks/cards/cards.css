@@ -3,224 +3,219 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
   gap: 24px;
+  grid-template-columns: 1fr;
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
-}
-
-.cards .cards-card-body {
-  margin: 16px;
-}
-
-.cards .cards-card-image {
-  line-height: 0;
-}
-
-.cards > ul > li img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-}
-
-/* ---------- interest variant (image-overlay tiles) ---------- */
-.cards.interest > ul {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.cards.interest > ul > li {
-  border: 0;
-  background: none;
-}
-
-.cards.interest .card-tile {
-  position: relative;
-  display: block;
-  border-radius: 8px;
-  overflow: hidden;
-  aspect-ratio: 369 / 510;
-  color: #fff;
-}
-
-.cards.interest .card-tile-media,
-.cards.interest .card-tile-media img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.cards.interest .card-tile-media img {
-  object-fit: cover;
-  aspect-ratio: auto;
-}
-
-.cards.interest .card-tile-art {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 30%;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  padding: 0 10%;
-}
-
-.cards.interest .card-tile-art img {
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 8px 18px rgb(0 0 0 / 35%));
-}
-
-.cards.interest .card-tile::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(to top, rgb(0 0 0 / 80%) 0%, rgb(0 0 0 / 15%) 42%, transparent 66%);
-}
-
-.cards.interest .card-tile-overlay {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.cards.interest .card-tile-title {
-  font-family: var(--bold-font-family);
-  font-size: 24px;
-  line-height: 1.125;
-}
-
-.cards.interest .card-tile-cta {
-  font-size: 16px;
-  line-height: 1.5;
-  text-decoration: underline;
-}
-
-.cards.interest .card-tile:hover .card-tile-cta {
-  text-decoration: none;
-}
-
-@media (width <= 900px) {
-  .cards.interest > ul {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ---------- marketing variant (used inside tabs) ---------- */
-.cards.marketing > ul {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.cards.marketing > ul > li {
-  border: 1px solid #e1e1e1;
   border-radius: 8px;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 6%);
-  display: flex;
-  flex-direction: column;
-  position: relative;
 }
 
-.cards.marketing .card-mkt-image {
-  position: relative;
-  line-height: 0;
-}
-
-.cards.marketing .card-mkt-image img {
-  aspect-ratio: 686 / 386;
+.cards .cards-card-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
 }
 
-.cards.marketing .card-mkt-body {
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
+.cards .cards-card-body {
+  padding: 16px 20px 20px;
 }
 
-/* prod gives the marketing cards a tall uniform height so the link sits at the bottom */
-@media (width >= 992px) {
-  .cards.marketing > ul > li {
-    min-height: 490px;
+.cards .cards-card-body h3 {
+  font-size: 20px;
+  line-height: 1.2;
+  margin: 8px 0;
+  text-wrap: balance;
+}
+
+.cards .cards-card-body p {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #444;
+  margin: 0 0 10px;
+}
+
+.cards .cards-card-link {
+  color: #d3242f;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cards .cards-card-link::after {
+  content: " \203A";
+}
+
+@media (width >= 600px) {
+  .cards.featured > ul {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.cards.marketing .card-mkt-badge {
+/* interest tiles stack until desktop, matching prod (tablet shows one column) */
+@media (width >= 900px) {
+  .cards.interest > ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 69px;
+  }
+}
+
+/* "You may be interested in": lifestyle photo background + card-art overlay + title */
+.cards.interest > ul > li {
+  position: relative;
+  min-height: 481px;
+  overflow: hidden;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-end;
+}
+
+@media (width >= 900px) {
+  .cards.interest > ul > li {
+    min-height: 560px;
+  }
+}
+
+.cards.interest .cards-card-image {
   position: absolute;
-  top: 16px;
-  left: 16px;
-  margin: 0;
-  background: #0b5f7a;
+  inset: 0;
+}
+
+.cards.interest .cards-card-image img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+}
+
+.cards.interest .cards-card-body {
+  position: relative;
+  z-index: 1;
+  width: 100%;
   color: #fff;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 5px 10px;
-  border-radius: 3px;
+  padding: 24px 24px 24px 20px;
+  background: linear-gradient(transparent, rgb(0 0 0 / 15%) 40%, rgb(0 0 0 / 78%));
 }
 
-.cards.marketing .card-mkt-badge em,
-.cards.marketing .card-mkt-badge strong {
-  font-style: normal;
-  font-weight: 400;
+/* desktop tiles sit edge-to-edge with wide gaps; text aligns to the card edge */
+@media (width >= 900px) {
+  .cards.interest .cards-card-body {
+    padding-left: 0;
+  }
 }
 
-.cards.marketing .card-mkt-body h3,
-.cards.marketing .card-mkt-body h4 {
-  font-family: var(--bold-font-family);
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.5;
-  color: var(--heading-color);
-  margin: 0;
+/* mobile/tablet: text block sits closer to the tile bottom, matching prod */
+@media (width <= 899px) {
+  .cards.interest .cards-card-body {
+    padding-bottom: 0;
+  }
 }
 
-.cards.marketing .card-mkt-body p {
-  font-size: 16px;
-  color: var(--text-color);
-  margin: 0;
-  line-height: 1.5;
+/* the credit-card art floats above the title, overlapping the photo */
+.cards.interest .cards-card-body picture {
+  position: absolute;
+  bottom: 120px;
+  left: 24px;
+  width: 58%;
 }
 
-.cards.marketing .card-mkt-link {
-  margin-top: auto;
-  color: var(--link-color);
-  font-family: var(--bold-font-family);
-  font-size: 16px;
-  line-height: 1.5;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.cards.interest .cards-card-body picture img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 24px rgb(0 0 0 / 45%));
 }
 
-.cards.marketing .card-mkt-link::after {
-  content: '\203A';
-  font-size: 18px;
-  line-height: 1;
+.cards.interest .cards-card-body h3 {
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 32px;
 }
 
-.cards.marketing .card-mkt-link:hover {
+.cards.interest .cards-card-link {
+  color: #fff;
+}
+
+.cards.interest .cards-card-link:hover,
+.cards.interest .cards-card-link:focus-visible {
   text-decoration: underline;
 }
 
-@media (width <= 900px) {
-  .cards.marketing > ul {
-    grid-template-columns: 1fr;
+/* Featured offer tiles */
+.cards.featured > ul > li {
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 6%);
+  display: flex;
+  flex-direction: column;
+  min-height: 426px;
+}
+
+/* the body fills the card; content top-aligned with the CTA pushed to the bottom (prod) */
+.cards.featured .cards-card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (width >= 600px) {
+  .cards.featured > ul {
+    row-gap: 30px;
   }
+
+  .cards.featured > ul > li {
+    min-height: 585px;
+  }
+}
+
+@media (width >= 1000px) {
+  .cards.featured > ul > li {
+    min-height: 525px;
+  }
+}
+
+.cards.featured .cards-card-body h3 {
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: normal;
+  color: #2b2b2b;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.cards.featured .cards-card-link {
+  font-family: scotiabank-bold, var(--body-font-family);
+  font-size: 16px;
+  color: #007eab;
+}
+
+/* push the CTA paragraph to the bottom of the card, like prod */
+.cards.featured .cards-card-body > p:last-of-type {
+  margin-top: auto;
+  padding-top: 12px;
+  margin-bottom: 0;
+}
+
+.cards.featured .cards-card-link:hover,
+.cards.featured .cards-card-link:focus-visible {
+  color: #005e80;
+  text-decoration: underline;
+}
+
+.cards.featured .cards-card-badge {
+  display: inline-block;
+  background: #006272;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 3px;
+  margin: 0;
+}
+
+.cards.featured .cards-card-badge strong {
+  font-weight: 700;
 }
